@@ -1,6 +1,19 @@
 export function sideMetrics() {
   console.log("sideMetrics OK")
 
+  // Nombre de participants à un groupe
+  const statsGroupe = document.querySelectorAll(".gris");
+
+  statsGroupe.forEach((span) => {
+      const text = span.textContent.toLowerCase(); // mettre en minuscule pour éviter la casse
+
+      if (text.includes("participants") || text.includes("messages")) {
+          // Remplace le contenu par "Livres" uniquement
+          span.textContent = "";
+      }
+  });
+
+
   // Insignes et contributions (sur la page Accueil du profil)
   const insigneBanner = document.querySelector("#page_corps > div > div.side_r > div > div:nth-child(7)");
   const sidePanel = document.querySelector("div.side_r_content");
