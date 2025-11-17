@@ -113,7 +113,8 @@ export function userMetrics() {
       const groupeNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Groupes"));
       const messagesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Mes Messages"));
       const discussionNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Discussion avec"));
-
+      const listesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Ses listes"));
+      const echangesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("A échanger"));
 
 
       function supprimerParentheses(array) {
@@ -133,6 +134,8 @@ export function userMetrics() {
       supprimerParentheses(groupeNb)
       supprimerParentheses(messagesNb)
       supprimerParentheses(discussionNb)
+      supprimerParentheses(listesNb)
+      supprimerParentheses(echangesNb)
 
     // Supprimer le nombre de messages envoyés dans une conversation
 
