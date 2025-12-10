@@ -84,6 +84,14 @@ export function ratings() {
   );
   if (distributionRatings) ratingArray.push(distributionRatings);
 
+
+  const bookMetadata = document.querySelector("div.livre_con");
+  if (bookMetadata) {
+    const newBookRating = document.querySelector("div.livre_con"); // Nouvel encart de note du livre sur Babelio
+    if (bookMetadata) ratingArray.push(bookMetadata); // Fonctionne pour masquer tout
+    }
+
+
   //// Onglet "Critiques"
   // Sumary of critics
   const summaryRatingsPageCritics = document.querySelector("#histogramme");
