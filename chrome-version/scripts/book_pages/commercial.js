@@ -2,33 +2,15 @@
 
 export function commercial() {
     console.log("Commercial OK");
-    const commercials = document.querySelector("#page_corps > div > div:nth-child(3) > div.side_r > div:nth-child(2)");
 
-    // For smaller screens
-    const commercialsV2 = document.querySelector(".no-desktop");
+    // Supprimer le bandeau d'achat sur une plateforme en ligne
+    const titles = document.querySelectorAll(".side_r_content");
+
+    titles.forEach(title => {
+        if (title.textContent.includes("Acheter ce livre sur")) {
+            title.remove();
+        }
+    });
     
-
-    function removeBuyAds(ad) {
-        const observer = new MutationObserver(() => {
-            if (ad) {
-                ad.remove();
-            }
-        });
-    
-        observer.observe(document.body, { childList: true, subtree: true });
-    }
-    
-    removeBuyAds(commercials);
-    removeBuyAds(commercialsV2);
-
-    
-    // Onglet Critiques
-    const addBannerPageCritics = document.querySelector("#page_corps > div > div:nth-child(3) > div.side_r > div > div:nth-child(2)")
-
-    if (addBannerPageCritics) {
-        addBannerPageCritics.remove()
-        addBannerPageCritics.classList.add("hidden-by-script");
-    };
-
 }
 

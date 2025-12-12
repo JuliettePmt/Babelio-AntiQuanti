@@ -32,6 +32,7 @@ export function ratings() {
   const communityRatings = document.querySelectorAll(
     "span > div.entete_critique > div.entete_login > div"
   );
+  
   const textNoter = document.querySelector(
     "#page_corps > div > div:nth-child(3) > div.side_l > div.livre_con > div.col.col-8 > table > tbody > tr > td:nth-child(1) > nobr"
   );
@@ -61,36 +62,35 @@ export function ratings() {
 
   //******** UNIQUE ELEMENTS ********
   // Top part of book page (beside metadata)
-  const ratingValue = document.querySelector(
-    "#page_corps > div > div:nth-child(3) > div.side_l > div.livre_con > div.col.col-8 > span:nth-child(7)"
-  );
-  const ratingValueV2 = document.querySelector(
-    "#page_corps > div > div:nth-child(3) > div.side_l > div.livre_con > div.col.col-8 > span:nth-child(3)"
-  );
-  if (ratingValue) ratingArray.push(ratingValue);
-  if (ratingValueV2) ratingArray.push(ratingValueV2);
+  // const ratingValue = document.querySelector(
+  //   "#page_corps > div > div:nth-child(3) > div.side_l > div.livre_con > div.col.col-8 > span:nth-child(7)"
+  // );
+  // const ratingValueV2 = document.querySelector(
+  //   "#page_corps > div > div:nth-child(3) > div.side_l > div.livre_con > div.col.col-8 > span:nth-child(3)"
+  // );
+  // if (ratingValue) ratingArray.push(ratingValue);
+  // if (ratingValueV2) ratingArray.push(ratingValueV2);
 
-  const ratingStars = document.querySelector("div.rateit");
-  if (ratingStars) ratingArray.push(ratingStars);
+  // const ratingStars = document.querySelector("div.rateit");
+  // if (ratingStars) ratingArray.push(ratingStars);
 
-  const ratingScale = document.querySelector(
-    "#page_corps > div > div:nth-child(3) > div.side_l > div.livre_con > div.col.col-8 > span:nth-child(5)"
-  );
-  if (ratingScale) ratingArray.push(ratingScale);
+  // const ratingScale = document.querySelector(
+  //   "#page_corps > div > div:nth-child(3) > div.side_l > div.livre_con > div.col.col-8 > span:nth-child(5)"
+  // );
+  // if (ratingScale) ratingArray.push(ratingScale);
 
-  // Bottom part of book page (just before critics)
-  const distributionRatings = document.querySelector(
-    "#page_corps > div > div:nth-child(3) > div.side_l > div:nth-child(9)"
-  );
-  if (distributionRatings) ratingArray.push(distributionRatings);
+  // // Bottom part of book page (just before critics)
+  // const distributionRatings = document.querySelector(
+  //   "#page_corps > div > div:nth-child(3) > div.side_l > div:nth-child(9)"
+  // );
+  // if (distributionRatings) ratingArray.push(distributionRatings);
 
 
   const bookMetadata = document.querySelector("div.livre_con");
   if (bookMetadata) {
-    const newBookRating = document.querySelector("div.livre_con"); // Nouvel encart de note du livre sur Babelio
-    if (bookMetadata) ratingArray.push(bookMetadata); // Fonctionne pour masquer tout
+    const newBookRating = document.querySelector("[style*='border-radius:5px']");
+    if (newBookRating) ratingArray.push(newBookRating); // Fonctionne pour masquer tout
     }
-
 
   //// Onglet "Critiques"
   // Sumary of critics

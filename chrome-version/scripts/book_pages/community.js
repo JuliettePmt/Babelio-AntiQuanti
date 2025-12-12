@@ -75,14 +75,14 @@ export function community() {
 
     // QUIZ
 
-    // Nb of users for each quiz
-    const numberUsersQuiz = document.querySelectorAll("div > div > div > div.col-9.col > h3 > small")
+
+    // Nombre de réponses aux quizz (page de livres)
+    const numberUsersQuiz = document.querySelector(".side_quizz_nb")
 
     if (numberUsersQuiz) {
-        numberUsersQuiz.forEach(nbUsersQuiz => {
-            nbUsersQuiz.remove();
-        });
+        numberUsersQuiz.remove();
     }
+
 
     // Quiz rating
     const metadataQuiz = document.querySelectorAll("div > div > div > div > h3 > a");

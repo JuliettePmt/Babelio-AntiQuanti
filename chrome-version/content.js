@@ -6,18 +6,32 @@ import { commercial } from "./scripts/book_pages/commercial.js";
 import { userMetrics } from "./scripts/user_profile/userMetrics.js";
 import { sideMetrics } from "./scripts/user_profile/sideMetrics.js";
 
+// 1. Le body est déjà caché par le CSS injecté
 
-// BOOK PAGES
-ratings();
-community();
-platformMetrics();
-authorMetrics();
-commercial();
+// 2. Fonction pour réafficher le body
+function showBody() {
+  const style = document.createElement('style');
+  style.textContent = 'body { display: block !important; }';
+  document.head.appendChild(style);
+}
 
-// USER PROFILE
-userMetrics();
-sideMetrics();
+// 3. Exécute tes scripts avec gestion d'erreur
+async function pluginLaunch() {
+  try {
+    // Exécute toutes les fonctions de nettoyage
+    ratings();
+    community();
+    platformMetrics();
+    authorMetrics();
+    commercial();
+    userMetrics();
+    sideMetrics();
+  } catch (e) {
+    console.error("Erreur dans pluginLaunch :", e);
+  } finally {
+    showBody();
+  }
+}
 
-
-// Execute : npm run build
-console.log("Content script is running!");
+// 4. Lance tout immédiatement
+pluginLaunch();

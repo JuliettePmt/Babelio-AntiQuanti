@@ -1,3 +1,5 @@
+// Not here author disappear
+
 export function platformMetrics() {
 
     console.log("platformMetrics OK")
@@ -26,13 +28,6 @@ export function platformMetrics() {
             ratingText.remove();
         }
     });
-
-
-
-        
-        
-
-
 
 
     // Nombre de livres lus (displayed in the banner of the user profile) : "Livres (XXX)"
@@ -64,18 +59,56 @@ export function platformMetrics() {
 
     if (targetNodeNbReaders) {
         const observer = new MutationObserver(() => {
-            const readersDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre"))
-                .find(div => div.textContent.includes("Lecteurs"));
+
+
+        const readersDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Lecteurs")); // Nombre de lecteurs sur la page d'un livre
+
+        const authorOtherBooksDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Autres livres de")); // Nombre d'autres livres par le même auteur
+
+
+        const listsDivPageLists = Array.from(document.querySelectorAll("div.titre")).find(div => div.textContent.includes("Listes contenant")); // Nombre de livres dans la liste (sur la page des livres)
+    
+        if (listsDivPageLists) {
+            // Parcourt uniquement les nœuds texte
+            listsDivPageLists.childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    // Supprime le nombre entre parenthèses, même si des espaces/retours sont autour
+                    node.nodeValue = node.nodeValue.replace(/\(\d+\)/g, '').trim();
+                }
+            });
+        }
+
+        if (targetNodeNbReaders) {
+
+            const listsDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Listes avec ce livre")); // Nombre de listes avec ce livre
+
+            if (listsDiv) { 
+                const link = listsDiv.querySelector("a"); 
+                if (link) {
+                    link.textContent = link.textContent.replace(/\(\d+\)/g, '');
+                }
+            }
+
+            if (authorOtherBooksDiv) {
+                authorOtherBooksDiv.childNodes.forEach(node => {
+                    if (node.nodeType === Node.TEXT_NODE && node.textContent.includes("Autres livres de")) {
+                        node.textContent = node.textContent.replace(/\(\d+\)/g, '');}
+                });
+            }          
+        
             if (readersDiv) {
                 readersDiv.childNodes.forEach(node => {
                     if (node.nodeType === Node.TEXT_NODE && node.textContent.includes("Lecteurs")) {
                         node.textContent = node.textContent.replace(/\(\d+\)/g, ''); // Remove directly only the number in parentheses
                     }
                 });
-                observer.disconnect();
             }
-        });
-    
+
+
+            }
+        observer.disconnect();
+        });  
+
         observer.observe(targetNodeNbReaders, { childList: true, subtree: true });
     }
 
