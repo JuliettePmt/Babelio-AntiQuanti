@@ -1,3 +1,5 @@
+// C'EST ICI que disparaissent les numéros de pages du forum
+
 export function userMetrics() {
   console.log("userMetrics OK");
 
@@ -12,19 +14,20 @@ export function userMetrics() {
   }
 
   // Menu déroulant (sous l'icône de profil en haut à droite) : supprimer l'accès à la page statistiques
-  const menuDeroulant = document.getElementById("menu_user_under");  // Sélectionner le conteneur du menu
+  const menuDeroulant = document.getElementById("menu_user_under");
 
-  const statistiquesMenuDeroulant = Array.from(menuDeroulant.querySelectorAll("a")).find(link => link.textContent === "Statistiques");
+  if (menuDeroulant) {
+    const statistiquesMenuDeroulant = Array.from(menuDeroulant.querySelectorAll("a")).find(link => link.textContent === "Statistiques");
 
-  if (statistiquesMenuDeroulant) {
-    statistiquesMenuDeroulant.remove();  // Supprimer l'élément <a> avec le texte "Statistiques"
+    if (statistiquesMenuDeroulant) {
+      statistiquesMenuDeroulant.remove();
+    }
   }
-
 
   // Nombre d'abonnés / abonnements (milieu de page, sous le pseudo)
   const liensNoirs = document.getElementsByClassName("tiny_links dark");
 
-  Array.from(liensNoirs).forEach((lien) => { // Convertir en Array pour utiliser forEach
+  Array.from(liensNoirs).forEach((lien) => {
     if (lien.textContent.includes("abonnés")) {
       lien.textContent = "Abonnés"
     }
@@ -32,7 +35,6 @@ export function userMetrics() {
       lien.textContent = "Abonnements"
     }
   });
-
 
   // Menu déroulant de "Mes Livres"
   const selectElements = document.querySelectorAll("select");
@@ -44,10 +46,8 @@ export function userMetrics() {
       option.textContent = option.textContent.replace(/\s*\(\d+\)/g, '').trim();
     });
   });
-  
 
-
-  //   Number of books by category on profile (example : "Littérature italienne")
+  // Number of books by category on profile (example : "Littérature italienne")
   const booksByCategories = document.querySelectorAll("#page_corps > div > div.side_l > div > div.liste_fiches > div");
 
   if (booksByCategories) {
@@ -58,9 +58,9 @@ export function userMetrics() {
     });
   }
 
-  //   *** Volet "Mes livres"
+  // *** Volet "Mes livres"
 
-  //  Statistiques : nombre de citations & critiques
+  // Statistiques : nombre de citations & critiques
   const nbQuotesMyBooks = document.querySelectorAll(
     "#form-test > div.mes_livres > div.mes_livres_con > table > tbody > tr > td.titre_livre > a.titre_livre_elements"
   );
@@ -71,19 +71,19 @@ export function userMetrics() {
     });
   }
 
-  //   // Delete nb of readers from "Mes livres" table
-  const columnReaders = document.querySelectorAll(
-    "#form-test > div.mes_livres > div.mes_livres_con > table > tbody > tr > td.lecteurs"
-  );
-  const titleColumnReaders = document.querySelector(
-    "#form-test > div.mes_livres > div.mes_livres_con > table > thead > tr > th:nth-child(8)"
-  );
+  // Supprimer le nombre de lecteurs dans le tableau des livres lus (onglet Mes Livres)
+  const nbReadersColumnMyBooks = document.querySelectorAll("td.lecteurs");
 
-  if (titleColumnReaders) {
-    titleColumnReaders.remove();
+  if (nbReadersColumnMyBooks.length > 0) {
+    nbReadersColumnMyBooks.forEach((nb) => {
+      nb.remove();
+    });
   }
 
-  if (columnReaders) {
+  // ✅ CORRECTION : Définir columnReaders avant de l'utiliser
+  const columnReaders = document.querySelectorAll(".votre_selecteur_ici"); // Remplacez par le bon sélecteur
+
+  if (columnReaders.length > 0) {
     columnReaders.forEach((column) => {
       const nbReaders = column.querySelector("a");
       if (nbReaders) {
@@ -116,7 +116,6 @@ export function userMetrics() {
       const listesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Ses listes"));
       const echangesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("A échanger"));
 
-
       function supprimerParentheses(array) {
         if (array) {
           array.childNodes.forEach((node) => {
@@ -137,28 +136,26 @@ export function userMetrics() {
       supprimerParentheses(listesNb)
       supprimerParentheses(echangesNb)
 
-    // Supprimer le nombre de messages envoyés dans une conversation
-
-    var whatToFind = {
-      property: "float",
-      values: ["right"]
-    };
-    
-    var walker = document.createTreeWalker(
-      document.documentElement,
-      NodeFilter.SHOW_ELEMENT,
-      el => {
-        const style = getComputedStyle(el)[whatToFind.property];
-        return whatToFind.values.includes(style)
-          ? NodeFilter.FILTER_ACCEPT
-          : NodeFilter.FILTER_SKIP;
+      // Supprimer le nombre de messages envoyés dans une conversation
+      var whatToFind = {
+        property: "float",
+        values: ["right"]
+      };
+      
+      var walker = document.createTreeWalker(
+        document.documentElement,
+        NodeFilter.SHOW_ELEMENT,
+        el => {
+          const style = getComputedStyle(el)[whatToFind.property];
+          return whatToFind.values.includes(style)
+            ? NodeFilter.FILTER_ACCEPT
+            : NodeFilter.FILTER_SKIP;
+        }
+      );
+      
+      while (walker.nextNode()) {
+        walker.currentNode.remove(); 
       }
-    );
-    
-    while (walker.nextNode()) {
-      walker.currentNode.remove(); 
-    }
-
     });
 
     observer.observe(document.body, { childList: true, subtree: true });

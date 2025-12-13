@@ -1,3 +1,5 @@
+// Pas ici pour le nb de pages sur le forum
+
 export function community() {
 
     console.log("Community OK")
@@ -11,7 +13,6 @@ export function community() {
 
             if (numberLikes) {
                 numberLikes.style.display = "none";
-                numberLikes.classList.add("processed-by-script");
             }
         });
     }
@@ -23,7 +24,6 @@ export function community() {
             const numberOfCommentaryOnCritics = commentary.querySelector('[id^="myspan"]');
             if (numberOfCommentaryOnCritics) {
                 numberOfCommentaryOnCritics.style.display = "none";
-                numberOfCommentaryOnCritics.classList.add("processed-by-script");
             }
         });
     }
@@ -54,7 +54,6 @@ export function community() {
     if (nbBooksListsV2.length > 0) {
         nbBooksListsV2.forEach(nbBooksListV2 => {
             nbBooksListV2.remove();
-            nbBooksListV2.classList.add("processed-by-script");
         });
     }
 
@@ -82,6 +81,17 @@ export function community() {
     if (numberUsersQuiz) {
         numberUsersQuiz.remove();
     }
+
+    // Nombre de participants aux quizz (page de quizz : https://www.babelio.com/quiz/)
+    const quizMetadataGroup = document.querySelectorAll("div.quiz_row");
+
+    quizMetadataGroup.forEach(quizMetadata => {
+        const h3 = quizMetadata.querySelector("h3");
+        if (h3) {
+            h3.remove();
+        }
+    });
+    
 
 
     // Quiz rating
@@ -152,6 +162,23 @@ export function community() {
             }
         });
     }
-    
+
+
+// COMPARAISON ENTRE PROFILS
+
+    // TO DO : vous avez XX livres en commun (remplacer par "Vous avez des livres en commun !")
+
+    // Pourcentage de proximité des goûts entre nous et un autre utilisateur (ex : "Humour (+3%)")
+
+        const pourcentageProxmiteGouts = document.querySelectorAll("p.tags")
+
+        if (pourcentageProxmiteGouts.length > 0) {
+            pourcentageProxmiteGouts.forEach(pourcentage => {
+                if (pourcentage.textContent.match(/^\d+\s*livres/)) {
+                    pourcentage.textContent = pourcentage.textContent.replace(/\s?\(\+\d+\)/, '').trim();
+                }
+            });
+        }
+
     
 };

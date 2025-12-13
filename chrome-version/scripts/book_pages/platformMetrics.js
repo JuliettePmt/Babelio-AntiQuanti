@@ -1,4 +1,4 @@
-// Not here author disappear
+// Not here nombre de pages de forum disparaissent
 
 export function platformMetrics() {
 
@@ -112,6 +112,11 @@ export function platformMetrics() {
         observer.observe(targetNodeNbReaders, { childList: true, subtree: true });
     }
 
+    // Masquer l'iframe du nombre de followers sur Facebook (sur la page d'accueil)
+    document.querySelectorAll('iframe[src*="facebook.com"]').forEach(iframe => {
+        iframe.style.display = 'none';
+    });
+
 
     // Number of citations between reco books 
     const bookCitations = document.querySelectorAll(".side_l h3 nobr a");
@@ -121,7 +126,6 @@ export function platformMetrics() {
             bookCitation.style.display = "none";
         });
     };
-
 
 
     // >> Execution <<

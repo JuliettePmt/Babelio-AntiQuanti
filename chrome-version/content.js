@@ -5,20 +5,39 @@ import { authorMetrics } from "./scripts/book_pages/authorMetrics.js";
 import { commercial } from "./scripts/book_pages/commercial.js";
 import { userMetrics } from "./scripts/user_profile/userMetrics.js";
 import { sideMetrics } from "./scripts/user_profile/sideMetrics.js";
+import { masquerNotifs, afficherNotifs } from './scripts/user_profile/notifications.js';
 
-// 1. Le body est déjà caché par le CSS injecté
+// -------------------------------- Supprimer / afficher les notifications --------------------------------
+chrome.storage.local.get(['showNotifications'], (result) => {
+  if (result.showNotifications) {
+    afficherNotifs();
+  } else {
+    masquerNotifs();
+  }
+});
 
-// 2. Fonction pour réafficher le body
+// 2. Écoute les messages du popup
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'masquerNotifs') {
+    masquerNotifs();
+  } else if (request.action === 'afficherNotifs') {
+    afficherNotifs();
+  }
+});
+
+// ---------------------------------------------------------------------------------------------------------
+
+
+// NB : à ce stade, le body est masqué par le CSS.
 function showBody() {
   const style = document.createElement('style');
   style.textContent = 'body { display: block !important; }';
   document.head.appendChild(style);
 }
 
-// 3. Exécute tes scripts avec gestion d'erreur
+
 async function pluginLaunch() {
   try {
-    // Exécute toutes les fonctions de nettoyage
     ratings();
     community();
     platformMetrics();
@@ -26,6 +45,7 @@ async function pluginLaunch() {
     commercial();
     userMetrics();
     sideMetrics();
+    notifications();
   } catch (e) {
     console.error("Erreur dans pluginLaunch :", e);
   } finally {
@@ -33,5 +53,4 @@ async function pluginLaunch() {
   }
 }
 
-// 4. Lance tout immédiatement
 pluginLaunch();

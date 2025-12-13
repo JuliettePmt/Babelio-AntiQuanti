@@ -1,3 +1,5 @@
+// PAs ici nb de pages forum
+
 export function ratings() {
   console.log("Ratings OK");
   let ratingArray = [];
@@ -115,6 +117,60 @@ export function ratings() {
       }
     });
   }
+
+
+// ----------------------------------- SUPPRIMER LA NOTE DANS LA RECO DU JOUR ---------------------------------------------
+
+  // Attendre que la lightbox soit ouverte et que l'iframe soit chargé
+function checkAndCleanLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox || lightbox.style.visibility !== 'inherit') return;
+
+  const iframe = lightbox.querySelector('iframe');
+  if (!iframe) return;
+
+  // Accéder au contenu de l'iframe (nécessite same-origin ou CORS permissif)
+  try {
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      if (!iframeDoc) {
+          // Si l'iframe n'est pas encore chargé, réessayer plus tard
+          setTimeout(checkAndCleanLightbox, 300);
+          return;
+      }
+
+      // Sélecteur pour cibler la note ("4.09★") dans l'iframe
+      const ratingElement = iframeDoc.querySelector('div[style*="margin:0px auto 7px auto"] > span[style*="color:#fbb91e"]')?.parentElement;
+      if (ratingElement) {
+          ratingElement.remove();
+          console.log("Élément supprimé dans l'iframe !");
+      } else {
+          console.log("Élément non trouvé dans l'iframe.");
+      }
+  } catch (e) {
+      console.error("Erreur d'accès à l'iframe (CORS ?) :", e);
+  }
+}
+
+// 1. Vérifier périodiquement si la lightbox est ouverte
+const lightboxChecker = setInterval(checkAndCleanLightbox, 500);
+
+// 2. Écouter les clics qui pourraient ouvrir la lightbox
+document.addEventListener('click', () => {
+  setTimeout(checkAndCleanLightbox, 200); // Délai pour laisser le temps à l'iframe de charger
+});
+
+// 3. Nettoyer quand la lightbox est fermée
+const originalClose = document.getElementById('lightbox_close')?.onclick;
+if (originalClose) {
+  document.getElementById('lightbox_close').onclick = function() {
+      originalClose.call(this);
+      clearInterval(lightboxChecker); // Arrêter la vérification si la lightbox est fermée
+  };
+}
+
+// --------------------------------------------------------------------------------
+  
+
 
   //  >> Execution <<
   for (let i = 0; i < ratingArray.length; i++) {

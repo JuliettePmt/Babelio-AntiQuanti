@@ -1,4 +1,4 @@
-// STATISTIQUES DES AUTEURS
+// Pas ici nb de pages
 export function authorMetrics() {
 
     // Nombre de livres écrits et de critiques reçues
@@ -15,46 +15,41 @@ export function authorMetrics() {
     });
 
     // "Bibliographie de [Virginie Despentes] (XX)"
-    
     const allDivTitres = document.getElementsByClassName("titre");
-    if (allDivTitres) {
+
+    if (allDivTitres.length > 0) {
       const observer = new MutationObserver(() => {
-
-        const bibliographieDe = Array.from(allDivTitres).find((div) => div.textContent.includes("Bibliographie de")); 
-        const nbVideosInterviews = Array.from(allDivTitres).find((div) => div.textContent.includes("Videos et interviews"));
-        const nbPodcasts = Array.from(allDivTitres).find((div) => div.textContent.includes("Podcasts"));
-
-        function supprimerParentheses(array) {
-          if (array) {
-            array.childNodes.forEach((node) => {
-              if (
-                node.nodeType === Node.TEXT_NODE &&
-                /\(\d+\)/.test(node.textContent)
-              ) {
+        Array.from(allDivTitres).forEach((titre) => {
+          // Cas spécifique pour le div #dvideo
+          if (titre.id === "dvideo") {
+            // Parcours les nœuds enfants du div
+            Array.from(titre.childNodes).forEach((node) => {
+              // Ne garde que les nœuds texte (pas le lien <a>)
+              if (node.nodeType === Node.TEXT_NODE) {
+                // Supprime les "(XX)" dans le nœud texte
                 node.textContent = node.textContent.replace(/\s*\(\d+\)/g, "");
               }
             });
           }
-        }
-        supprimerParentheses(bibliographieDe)
-        supprimerParentheses(nbVideosInterviews)
-        supprimerParentheses(nbPodcasts)
-
-
-        // Onglets Citations / Vidéos
-        Array.from(allDivTitres).forEach((titre) => {
-            if (titre.textContent.includes("Citations de") || titre.textContent.includes("Vidéos de")) {
+          // Autres cas (Citations, Vidéos, etc.)
+          else if (
+            titre.textContent.includes("Citations de") ||
+            titre.textContent.includes("Vidéos de") ||
+            titre.textContent.includes("Videos de")
+          ) {
             const span = titre.querySelector("span");
-              if (span) {
-                span.remove();  // Supprimer le <span> contenant "(3600)"
-              }
-            }
-          });
-        
-      }); // Clôture observation
-  
+            if (span) span.remove();
+          }
+        });
+      });
+
+      // Démarre l'observation
       observer.observe(document.body, { childList: true, subtree: true });
     }
+
+
+
+    
 
     // Voir plus (XX)
     const voirPlus = document.getElementsByClassName("more");
@@ -82,10 +77,5 @@ export function authorMetrics() {
     }
 
     
-
-    // Nombre de livres
-
-    // Nombre de lecteurs
-
 
 }
