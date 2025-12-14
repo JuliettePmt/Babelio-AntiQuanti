@@ -26,19 +26,13 @@
     ],
     "content_scripts": [
         {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "dist/content.bundle.js"
-            ],
+            "matches": ["*://*.babelio.com/*"],
+            "js": ["dist/content.bundle.js"],
+            "css": ["hide-body.css"],
             "run_at": "document_idle"
         }
-    ],
-    "permissions": [
-        "storage",
-        "tabs",
-        "activeTab",
-        "webNavigation"
-    ]
+    ],    
+    "permissions": ["storage"]
 }
+
+
