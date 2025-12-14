@@ -29,5 +29,5 @@
             "css": ["hide-body.css"]
         }
     ],
-    "permissions": ["activeTab", "tabs", "storage"]
+    "permissions": ["storage"]
 }

@@ -80,18 +80,6 @@ export function userMetrics() {
     });
   }
 
-  // ✅ CORRECTION : Définir columnReaders avant de l'utiliser
-  const columnReaders = document.querySelectorAll(".votre_selecteur_ici"); // Remplacez par le bon sélecteur
-
-  if (columnReaders.length > 0) {
-    columnReaders.forEach((column) => {
-      const nbReaders = column.querySelector("a");
-      if (nbReaders) {
-        nbReaders.remove();
-      }
-    });
-  }
-
   // Supprimer le sélecteur de notes de "Mes livres" (pour trier par notes)
   const gradeSelector = document.querySelectorAll("div.styled-select");
 
@@ -137,25 +125,19 @@ export function userMetrics() {
       supprimerParentheses(echangesNb)
 
       // Supprimer le nombre de messages envoyés dans une conversation
-      var whatToFind = {
-        property: "float",
-        values: ["right"]
-      };
-      
-      var walker = document.createTreeWalker(
-        document.documentElement,
-        NodeFilter.SHOW_ELEMENT,
-        el => {
-          const style = getComputedStyle(el)[whatToFind.property];
-          return whatToFind.values.includes(style)
-            ? NodeFilter.FILTER_ACCEPT
-            : NodeFilter.FILTER_SKIP;
+      const messagesPrives = document.querySelectorAll('.post_con');
+
+      messagesPrives.forEach(messagePrive => {
+        const compteurMessagesPrives = messagePrive.querySelector('div[style*="float:right"][style*="margin-right:10px"][style*="color:#999"][style*="font-size:13px"]');
+        if (compteurMessagesPrives) {
+          compteurMessagesPrives.remove();
         }
-      );
-      
-      while (walker.nextNode()) {
-        walker.currentNode.remove(); 
-      }
+      });
+
+          
+
+
+
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
