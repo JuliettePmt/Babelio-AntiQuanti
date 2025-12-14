@@ -38,14 +38,13 @@ function showBody() {
 
 async function pluginLaunch() {
   try {
+    sideMetrics();
     ratings();
     community();
     platformMetrics();
     authorMetrics();
     commercial();
     userMetrics();
-    sideMetrics();
-    notifications();
   } catch (e) {
     console.error("Erreur dans pluginLaunch :", e);
   } finally {

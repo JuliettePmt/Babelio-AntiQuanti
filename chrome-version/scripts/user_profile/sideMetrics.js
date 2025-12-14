@@ -11,6 +11,7 @@ export function sideMetrics() {
           span.textContent = "";
       }
   });
+  
 
   const observer = new MutationObserver(() => {
     var messageElement = document.querySelector(".actualites_side_item");
@@ -64,7 +65,6 @@ export function sideMetrics() {
     // INSIGNES - vérifier avec un log
     const insignes = document.querySelectorAll(".side_insignes");
     insignes.forEach((stat) => {
-      console.log("Suppression de:", stat);
       stat.remove();
     });
 

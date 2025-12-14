@@ -12,3 +12,6 @@ The script will take all files from the Chrome version, except for :
 Run local test version :
 - Execute ```npx webpack``` in the **'_firefox-version/firefox-plugin_' directory**
 - Execute ```web-ext build``` also in the '_firefox-version/firefox-plugin_' directory
+
+
+Charge test version in Firefox on this URL : ```about:debugging#/runtime/this-firefox```
