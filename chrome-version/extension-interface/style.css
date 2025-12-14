@@ -1,19 +1,40 @@
+@font-face {
+    font-family : "VG5000";
+    src: url(VG5000-Regular.otf) format('opentype');
+}
+
+body {
+    border: 3px solid #393939;
+    padding: 1px;
+    margin: -1px;
+    width: 350px !important;
+    min-width: 25vw;
+    max-width: 500px;
+}
+
 * {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.2em;
+    font-family: 'VG5000';
+    font-size: 1.1em;
+    background-color: #E4DDC9;
 }
 
 h1 {
     font-size: 1.4em;
+    text-align: center;
 }
 
 .explanation {
-    width: 200px !important;
     padding: 5px;
+}
+
+.intro {
+    text-align: center;
+
 }
 
 
 .checkbox-text {
-    font-size: 0.8em;
+    font-size: 85%;
     /* font-style: italic; */
+    color: gray;
 }
