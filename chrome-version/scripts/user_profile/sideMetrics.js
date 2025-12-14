@@ -63,7 +63,6 @@ export function sideMetrics() {
 
     // INSIGNES - vérifier avec un log
     const insignes = document.querySelectorAll(".side_insignes");
-    console.log("Insignes trouvés:", insignes.length, insignes);
     insignes.forEach((stat) => {
       console.log("Suppression de:", stat);
       stat.remove();

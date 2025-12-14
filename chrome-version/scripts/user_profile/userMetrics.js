@@ -134,9 +134,6 @@ export function userMetrics() {
         }
       });
 
-          
-
-
 
     });
 

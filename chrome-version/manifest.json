@@ -1,6 +1,6 @@
 {
     "name": "Babelio Anti-Quanti",
-    "version": "4",
+    "version": "4.0.1",
     "description": "Dé-quantifier Babelio sur Chrome",
     "manifest_version": 3,
     "author": "Juliette Parmentier",
