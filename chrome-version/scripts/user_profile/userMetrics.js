@@ -71,6 +71,8 @@ export function userMetrics() {
     });
   }
 
+
+
   // Supprimer le nombre de lecteurs dans le tableau des livres lus (onglet Mes Livres)
   const nbReadersColumnMyBooks = document.querySelectorAll("td.lecteurs");
 
@@ -92,6 +94,20 @@ export function userMetrics() {
   }
 
   // Nombre de livres "en train de lire" et "pour une île déserte"
+
+  function supprimerParentheses(array) {
+    if (array) {
+      array.childNodes.forEach((node) => {
+        if (
+          node.nodeType === Node.TEXT_NODE &&
+          /\(\d+\)/.test(node.textContent)
+        ) {
+          node.textContent = node.textContent.replace(/\s*\(\d+\)/g, "");
+        }
+      });
+    }
+  }
+
   const allDivTitres = document.getElementsByClassName("titre");
 
   if (allDivTitres) {
@@ -103,19 +119,9 @@ export function userMetrics() {
       const discussionNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Discussion avec"));
       const listesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Ses listes"));
       const echangesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("A échanger"));
+      const themesCommunsComparaison = Array.from(allDivTitres).find((div) => div.textContent.includes("thèmes de lecture communs"));
+      const citationsSur = Array.from(allDivTitres).find((div) => div.textContent.includes("Citations sur"));
 
-      function supprimerParentheses(array) {
-        if (array) {
-          array.childNodes.forEach((node) => {
-            if (
-              node.nodeType === Node.TEXT_NODE &&
-              /\(\d+\)/.test(node.textContent)
-            ) {
-              node.textContent = node.textContent.replace(/\s*\(\d+\)/g, "");
-            }
-          });
-        }
-      }
       supprimerParentheses(ileDeserteDiv)
       supprimerParentheses(enTrainDeLire)
       supprimerParentheses(groupeNb)
@@ -123,17 +129,149 @@ export function userMetrics() {
       supprimerParentheses(discussionNb)
       supprimerParentheses(listesNb)
       supprimerParentheses(echangesNb)
+      supprimerParentheses(themesCommunsComparaison)
+      supprimerParentheses(citationsSur)
+
+
+      // "Voir tous mes livres (XXX)" (page d'un genre littéraire particulier : ex. : Littérature tchèque)
+      const allTinyLinks = document.getElementsByClassName("tiny_links");
+
+      if (allTinyLinks) {
+        const voirTousMesLivres = Array.from(allTinyLinks).find((a) => a.textContent.includes("voir tous mes livres"));
+
+        if (voirTousMesLivres) {
+          supprimerParentheses(voirTousMesLivres)
+          }
+      }
+
+
+    // Nombre de livres dans la bibliothèque sur le thème XX (exemple : "6 livre(s) sur le thème littérature tchèque")
+    const spans = document.querySelectorAll("span[style*='float:left'][style*='margin-top:15px'][style*='margin-right:2em']");
+
+    spans.forEach(span => {
+      // Vérifier le contenu
+      if (span.textContent.includes("livre(s)  sur le thème")) {    
+        const nbLivresTheme = span.querySelector("b");
+        if (nbLivresTheme) {
+          nbLivresTheme.remove(); 
+        }
+      }
+    });
+    
+
+    // Vous avez X livres en commun (page comparaison des profils)
+    const nbLivresCommunsUtilisateurs = Array.from(allDivTitres).find(a => a.textContent.includes("livres en commun") );
+    
+    if (nbLivresCommunsUtilisateurs && !nbLivresCommunsUtilisateurs.textContent.includes("Vous avez des livres en commun")) {
+      if (nbLivresCommunsUtilisateurs.textContent.includes("0 livre")) {
+        nbLivresCommunsUtilisateurs.textContent = "Vous n'avez pas de livre en commun";
+      } else {
+        nbLivresCommunsUtilisateurs.textContent = "Vous avez des livres en commun";
+      }
+    }
+    
+    // "Vos thèmes de lecture communs (XX%)""
+    const nbThemesLectureCommuns = Array.from(allDivTitres).find(div =>
+      div.textContent.includes("thèmes de lecture communs")
+    );
+    
+    if (nbThemesLectureCommuns && !nbThemesLectureCommuns.dataset.cleaned) {
+      nbThemesLectureCommuns.textContent = "Vos thèmes de lecture communs";
+      nbThemesLectureCommuns.dataset.cleaned = "true"; // marque comme traité
+    }
+
+
+
+    // Livres d'accord ("Vous êtes d'accord sur X livres")
+    const allH3 = document.querySelectorAll("h3");
+
+    allH3.forEach(h3 => {
+      // Ne traiter que les h3 contenant "d’accord sur" et non encore modifiés
+      if (/d[’']accord sur/.test(h3.textContent) && !h3.dataset.cleaned) {
+        const font = h3.querySelector("font");
+        const nbLivres = font ? parseInt(font.textContent, 10) : 0;
+    
+        if (nbLivres === 0) {
+          h3.textContent = "Vous n'êtes d'accord sur aucun livre";
+        } else {
+          h3.textContent = "Vous êtes d'accord sur certains livres";
+        }
+    
+        // Marquer comme traité pour éviter que l'observer le retravaille
+        h3.dataset.cleaned = "true";
+      }
+    });
+    
+    
+
+    // Livres sur île déserte : classement dans les PAL (c'est une image sur une autre. Apparaît dans la bibliothèque)
+    const divMesLivres = document.querySelectorAll("div.mes_livres");
+    const toDelete = [
+      "/images/1blanc.gif",
+      "/images/2blanc.gif",
+      "/images/3blanc.gif",
+      "/images/4blanc.gif",
+      "/images/5blanc.gif",
+      "/images/6blanc.gif"
+    ];
+    
+    divMesLivres.forEach(div => {
+      div.querySelectorAll("img").forEach(img => {
+        if (toDelete.includes(img.getAttribute("src"))) {
+          img.remove(); 
+        }
+      });
+    });
+    
+    
+    // Thèmes communs : comparaison ("roman (+10%)")
+    const tagsParagraphs = document.querySelectorAll("p.tags");
+
+    tagsParagraphs.forEach(p => {
+      const nobrs = p.querySelectorAll("nobr");
+    
+      nobrs.forEach(nobr => {
+        if (nobr.dataset.cleaned) return;
+    
+        // Parcourir les enfants du nobr
+        nobr.childNodes.forEach(node => {
+          // Ne modifier que les nœuds de texte
+          if (node.nodeType === Node.TEXT_NODE) {
+            node.textContent = node.textContent.replace(/\s*\(.*?\)/g, '').trim();
+          }
+        });
+    
+        nobr.dataset.cleaned = "true";
+      });
+    });
+    
+    
+
+         
 
       // Supprimer le nombre de messages envoyés dans une conversation
-      const messagesPrives = document.querySelectorAll('.post_con');
+      const postCon = document.querySelectorAll('.post_con');
 
-      messagesPrives.forEach(messagePrive => {
-        const compteurMessagesPrives = messagePrive.querySelector('div[style*="float:right"][style*="margin-right:10px"][style*="color:#999"][style*="font-size:13px"]');
+      postCon.forEach(encadrePostCon => {
+        const compteurMessagesPrives = encadrePostCon.querySelector('div[style*="float:right"][style*="margin-right:10px"][style*="color:#999"][style*="font-size:13px"]');
         if (compteurMessagesPrives) {
           compteurMessagesPrives.remove();
         }
-      });
 
+  // RECOMMANDATIONS PERSONNALISÉES DU JOUR
+      // Nombre de livres figurant parmi les recommandations personnalisées du jour
+        const nbLivresRecoQuotidienne = encadrePostCon.querySelector('div.gris');
+        if (nbLivresRecoQuotidienne) {
+          nbLivresRecoQuotidienne.remove();
+        }
+
+      // Nombre de livres à afficher en plus (+6)
+      const inside_plus_n = encadrePostCon.querySelector('div.inside_plus_n');
+      if (inside_plus_n) {
+        inside_plus_n.remove();
+      }
+
+      });
 
     });
 

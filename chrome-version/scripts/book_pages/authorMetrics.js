@@ -33,6 +33,7 @@ export function authorMetrics() {
           }
           // Autres cas (Citations, Vidéos, etc.)
           else if (
+            titre.textContent.includes("Citations sur") ||
             titre.textContent.includes("Citations de") ||
             titre.textContent.includes("Vidéos de") ||
             titre.textContent.includes("Videos de")
