@@ -180,5 +180,91 @@ export function community() {
             });
         }
 
+    // Nombre de livres des derniers lecteurs inscrits
+    document.querySelectorAll(".fiche_lecteur a").forEach(a => {
+        a.childNodes.forEach(node => {
+            if (
+                node.nodeType === Node.TEXT_NODE &&
+                /\d+\s+livres/.test(node.textContent)
+            ) {
+                node.remove();
+            }
+        });
+    });
+
+
+    // BADGES ET INSIGNES (accessibles autrement sur le site)
+    
+      // Nombre de points des "experts"
+      document.querySelectorAll("div.gris").forEach(div => {
+        if (div.textContent.includes("points")) {
+            div.remove(); 
+        }
+    });
+    
+      
+    // Supprimer les nombres de critiques des experts mais garder le <a>
+    document.querySelectorAll("a.titre_livre_elements b").forEach(b => {
+        if (/^\d+$/.test(b.textContent.trim())) {
+            b.remove(); // supprime le <b> uniquement si c'est un numéro
+        }
+    });
+    
+
+    // Supprimer le classement des experts (1er, 178ème, etc.)
+    document.querySelectorAll("a.titre1").forEach(a => {
+        a.childNodes.forEach(node => {
+            if (
+                node.nodeType === Node.TEXT_NODE &&
+                /\d+(er|ème)/.test(node.textContent)
+            ) {
+                node.remove();
+            }
+        });
+    });
+
+
+    // Supprimer le nombre de critiques d'un abonné
+    document.querySelectorAll("a.titre_livre_elements").forEach(a => {
+        // Vérifie si le lien contient "critiques"
+        if (a.textContent.includes("critiques")) {
+            a.querySelectorAll("span").forEach(span => {
+                if (/^\d+$/.test(span.textContent.trim())) {
+                    span.remove();
+                }
+            });
+        }
+    });
+    
+    
+
+    // Supprimer les nombres de tous les onglets ("premiers pas", "insignes", "experts")
+    document.querySelectorAll("#tabsholder2 li span").forEach(span => {
+        // Supprime uniquement les nombres entre parenthèses
+        span.textContent = span.textContent.replace(/\(\s*\d+\s*\)/, "");
+    });
+    
+
+    // Flèches de progression dans le classement
+
+    document.querySelectorAll("div[style*='font-size:12px'] img").forEach(img => {
+        if (img.src.includes("frouge.png")) {
+            img.remove();
+        }
+    });
+
+    document.querySelectorAll("div[style*='font-size:12px'] img").forEach(img => {
+        if (img.src.includes("fverte.png")) {
+            img.remove();
+        }
+    });
+    
+    document.querySelectorAll("div[style*='font-size:12px'] span").forEach(span => {
+        // Supprime uniquement si le texte est un nombre
+        if (/^\d+$/.test(span.textContent.trim())) {
+            span.remove();
+        }
+    });
+    
     
 };

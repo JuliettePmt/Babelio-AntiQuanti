@@ -128,6 +128,15 @@ export function platformMetrics() {
     };
 
 
+    // Nombre de critique par chaque média de presse (page "Dernières critiques")
+    document.querySelectorAll("div.fiche_lecteur span").forEach(span => {
+        if (/^\d+\s+critiques$/.test(span.textContent.trim())) {
+            span.remove();
+        }
+    });
+
+
+
     // >> Execution <<
     numberOfElementsArray.forEach(element => {
         element.childNodes.forEach(node => { // Use childNodes to prevent the suppression of all CSS style

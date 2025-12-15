@@ -119,6 +119,8 @@ export function userMetrics() {
       const discussionNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Discussion avec"));
       const listesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Ses listes"));
       const echangesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("A échanger"));
+      const listeUserNb = Array.from(allDivTitres).find((a) => a.textContent.includes("Ses listes"));
+      const critiquesSurTheme = Array.from(allDivTitres).find((div) => div.textContent.includes("Critiques sur le theme"));
       const themesCommunsComparaison = Array.from(allDivTitres).find((div) => div.textContent.includes("thèmes de lecture communs"));
       const citationsSur = Array.from(allDivTitres).find((div) => div.textContent.includes("Citations sur")); // "Citations sur "Feu" "
 
@@ -129,8 +131,10 @@ export function userMetrics() {
       supprimerParentheses(discussionNb)
       supprimerParentheses(listesNb)
       supprimerParentheses(echangesNb)
+      supprimerParentheses(listeUserNb)
       supprimerParentheses(themesCommunsComparaison)
       supprimerParentheses(citationsSur)
+      supprimerParentheses(critiquesSurTheme)
 
 
       // "Voir tous mes livres (XXX)" (page d'un genre littéraire particulier : ex. : Littérature tchèque)
