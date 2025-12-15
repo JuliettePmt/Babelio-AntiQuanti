@@ -14,6 +14,17 @@ export function authorMetrics() {
         }
     });
 
+  //   const etoiles = Array.from(document.querySelectorAll("*"))
+  //   .filter(etoile => Array.from(etoile.childNodes).some(node => node.nodeType === Node.TEXT_NODE && node.textContent.includes("★")) );
+  
+  // console.log("Éléments supprimés :", etoiles);
+  
+  // etoiles.forEach(étoile => étoile.remove());
+  
+  const ratingScales = document.querySelectorAll("div.rateit");
+  ratingScales.forEach(ratingScale => ratingScale.remove());
+
+
     // "Bibliographie de [Virginie Despentes] (XX)"
     const allDivTitres = document.getElementsByClassName("titre");
 
@@ -43,6 +54,7 @@ export function authorMetrics() {
           }
         });
       });
+
 
       // Démarre l'observation
       observer.observe(document.body, { childList: true, subtree: true });
