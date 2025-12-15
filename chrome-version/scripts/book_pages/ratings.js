@@ -160,13 +160,14 @@ document.addEventListener('click', () => {
 });
 
 // 3. Nettoyer quand la lightbox est fermée
-const originalClose = document.getElementById('lightbox_close')?.onclick;
-if (originalClose) {
-  document.getElementById('lightbox_close').onclick = function() {
-      originalClose.call(this);
-      clearInterval(lightboxChecker); // Arrêter la vérification si la lightbox est fermée
-  };
-}
+  const lightboxClose = document.getElementById('lightbox_close');
+  if (lightboxClose) {
+    const originalClose = lightboxClose.onclick;
+    lightboxClose.onclick = function() {
+      if (originalClose) originalClose.call(this);
+      clearInterval(lightboxChecker);
+    };
+  }
 
 // --------------------------------------------------------------------------------
   

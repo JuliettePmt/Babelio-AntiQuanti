@@ -120,7 +120,7 @@ export function userMetrics() {
       const listesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Ses listes"));
       const echangesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("A échanger"));
       const themesCommunsComparaison = Array.from(allDivTitres).find((div) => div.textContent.includes("thèmes de lecture communs"));
-      const citationsSur = Array.from(allDivTitres).find((div) => div.textContent.includes("Citations sur"));
+      const citationsSur = Array.from(allDivTitres).find((div) => div.textContent.includes("Citations sur")); // "Citations sur "Feu" "
 
       supprimerParentheses(ileDeserteDiv)
       supprimerParentheses(enTrainDeLire)
