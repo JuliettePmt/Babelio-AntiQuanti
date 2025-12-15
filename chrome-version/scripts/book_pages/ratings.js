@@ -94,6 +94,15 @@ export function ratings() {
     if (newBookRating) ratingArray.push(newBookRating); // Fonctionne pour masquer tout
     }
 
+    // Nouvelles notes dans un cadre (style variable...)
+    document.querySelectorAll('[itemprop="aggregateRating"]').forEach(agg => {
+      // Supprime le parent direct (cadre) qui contient l'élément aggregateRating
+      if (agg.parentElement) {
+          agg.parentElement.remove();
+      }
+  });
+  
+
   //// Onglet "Critiques"
   // Sumary of critics
   const summaryRatingsPageCritics = document.querySelector("#histogramme");

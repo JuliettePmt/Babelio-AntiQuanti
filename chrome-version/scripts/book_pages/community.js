@@ -235,6 +235,18 @@ export function community() {
             });
         }
     });
+
+    document.querySelectorAll("a.titre_livre_elements").forEach(a => {
+        // Vérifie si le lien contient "critiques"
+        if (a.textContent.includes("citations")) {
+            a.querySelectorAll("span").forEach(span => {
+                if (/^\d+$/.test(span.textContent.trim())) {
+                    span.remove();
+                }
+            });
+        }
+    });
+    
     
     
 
@@ -259,6 +271,7 @@ export function community() {
         }
     });
     
+    // Classements et insignes, suite
     document.querySelectorAll("div[style*='font-size:12px'] span").forEach(span => {
         // Supprime uniquement si le texte est un nombre
         if (/^\d+$/.test(span.textContent.trim())) {
