@@ -18,6 +18,8 @@ def createFirefoxVersion():
               chrome_directory)  # Copy new files in firefox directory
     replaceJSFiles(folder_name_firefox, "chrome.", "browser.")
     replaceJSFiles(folder_name_firefox, "91.0", "109.0")
+    
+    overwriteFiles(overwrite_directory, folder_path_firefox)
 
     # Copy manifest from the firefox-version directory and update version
     copyManifest(manifest_directory, folder_path_firefox,
@@ -106,16 +108,18 @@ def copyManifest(manifest_directory, folder_path_firefox, current_path, chrome_d
 def overwriteFiles(overwrite_directory, folder_path_firefox):
     
     for item in os.listdir(overwrite_directory):
-    item_path = os.path.join(overwrite_directory, item)
-    destination_path = os.path.join(folder_path_firefox, item)
-
-    if os.path.isfile(item_path):
-        shutil.copy(item_path, destination_path)
-        # print("Copied file")
-
-    elif os.path.isdir(item_path):
-        shutil.copytree(item_path, destination_path)
-        # print("Copied directory")
+        item_path = os.path.join(overwrite_directory, item)
+        destination_path = os.path.join(folder_path_firefox, item)
+        
+        if os.path.isfile(item_path):
+            shutil.copy(item_path, destination_path)
+            print(f"Fichier écrasé: {item}")
+        elif os.path.isdir(item_path):
+            # Supprimer le dossier existant avant de copier
+            if os.path.exists(destination_path):
+                shutil.rmtree(destination_path)
+            shutil.copytree(item_path, destination_path)
+            print(f"Dossier écrasé: {item}")
 
 
 # def copyManifest(manifest_directory, folder_path_firefox, current_path, chrome_directory):
