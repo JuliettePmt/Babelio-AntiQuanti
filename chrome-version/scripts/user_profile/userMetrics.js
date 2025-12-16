@@ -121,8 +121,10 @@ export function userMetrics() {
       const echangesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("A échanger"));
       const listeUserNb = Array.from(allDivTitres).find((a) => a.textContent.includes("Ses listes"));
       const critiquesSurTheme = Array.from(allDivTitres).find((div) => div.textContent.includes("Critiques sur le theme"));
+      const podcasts = Array.from(allDivTitres).find((div) => div.textContent.includes("Podcasts de"));
       const themesCommunsComparaison = Array.from(allDivTitres).find((div) => div.textContent.includes("thèmes de lecture communs"));
       const citationsSur = Array.from(allDivTitres).find((div) => div.textContent.includes("Citations sur")); // "Citations sur "Feu" "
+      const bibliographieAuteur = Array.from(allDivTitres).find((div) => div.textContent.includes("Bibliographie de")); // "Bibliographie de Marc Lévy"
 
       supprimerParentheses(ileDeserteDiv)
       supprimerParentheses(enTrainDeLire)
@@ -134,7 +136,9 @@ export function userMetrics() {
       supprimerParentheses(listeUserNb)
       supprimerParentheses(themesCommunsComparaison)
       supprimerParentheses(citationsSur)
+      supprimerParentheses(podcasts)
       supprimerParentheses(critiquesSurTheme)
+      supprimerParentheses(bibliographieAuteur) // A priori : non-fonctionnel, voir ci-après
 
 
       // "Voir tous mes livres (XXX)" (page d'un genre littéraire particulier : ex. : Littérature tchèque)
@@ -147,7 +151,48 @@ export function userMetrics() {
           supprimerParentheses(voirTousMesLivres)
           }
       }
+      
+      // "Bibliographie de Marc Lévy (XX)"
+      document.querySelectorAll('.texte_t3').forEach(el => {
+        const parent = el.closest('div');
+        if (parent && parent.textContent.includes('Bibliographie de')) {
+          el.remove();
+        }
+      });
 
+
+      // Nb de livres dans une liste
+
+      document.querySelectorAll('.liste_row').forEach(row => {
+        row.querySelectorAll('h3').forEach(h3 => {
+          const strong = h3.querySelector('strong');
+          const span = h3.querySelector('span');
+      
+          if (
+            strong &&
+            span &&
+            /^\d+$/.test(strong.textContent.trim()) &&
+            span.textContent.includes('livres')
+          ) {
+            strong.remove();
+            span.remove();
+          }
+        });
+      });
+      
+         // Note et nb de notes sur livres (pages de recherche plus lointaines, genre p. 16)
+   
+         document.querySelectorAll('.list_livre').forEach(livre => {
+          livre.querySelectorAll('h3').forEach(h3 => {
+            if (
+              h3.textContent.includes('★') &&
+              /\(\d+\)/.test(h3.textContent)
+            ) {
+              h3.remove();
+            }
+          });
+        });
+        
 
     // Nombre de livres dans la bibliothèque sur le thème XX (exemple : "6 livre(s) sur le thème littérature tchèque")
     const spans = document.querySelectorAll("span[style*='float:left'][style*='margin-top:15px'][style*='margin-right:2em']");
@@ -183,6 +228,7 @@ export function userMetrics() {
       nbThemesLectureCommuns.textContent = "Vos thèmes de lecture communs";
       nbThemesLectureCommuns.dataset.cleaned = "true"; // marque comme traité
     }
+
 
 
 

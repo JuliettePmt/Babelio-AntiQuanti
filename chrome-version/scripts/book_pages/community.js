@@ -278,6 +278,21 @@ export function community() {
             span.remove();
         }
     });
+
+    // "Livres classés thriller (35651)"
+    const h2 = document.querySelector('#nb_res h2');
+    if (h2) {
+      h2.textContent = h2.textContent.replace(/\s*\(\d+\)/g, '');
+    }
+    
+
+      // "Listes sur ce thème (XX)" (page thriller, par exemple)
+      document.querySelectorAll('.titre a').forEach(a => {
+        if (a.textContent.includes('Listes sur ce thème')) {
+          a.textContent = a.textContent.replace(/\s*\([^)]*\)/g, '');
+        }
+      });
+      
     
     
 };

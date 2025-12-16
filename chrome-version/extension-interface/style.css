@@ -32,6 +32,12 @@ h1 {
 
 }
 
+#lecture {
+    margin-top : 0.5vh;
+    font-size: 90%;
+    font-style: italic;
+}
+
 
 .checkbox-text {
     font-size: 85%;
