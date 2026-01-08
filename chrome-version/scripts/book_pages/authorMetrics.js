@@ -23,6 +23,17 @@ export function authorMetrics() {
   
   const ratingScales = document.querySelectorAll("div.rateit");
   ratingScales.forEach(ratingScale => ratingScale.remove());
+  
+  new MutationObserver(() => {
+    document.querySelectorAll("div.rateit").forEach(ratingScale => ratingScale.remove());
+
+    document.querySelectorAll("td nobr").forEach(nobr => {
+      if (nobr.textContent.trim() === "noter :") {
+        nobr.closest("tr")?.remove();
+      }
+    });
+  }).observe(document.body, { childList: true, subtree: true });
+  
 
 
     // "Bibliographie de [Virginie Despentes] (XX)"

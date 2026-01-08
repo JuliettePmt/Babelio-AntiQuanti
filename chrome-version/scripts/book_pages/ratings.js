@@ -87,19 +87,27 @@ export function ratings() {
   // );
   // if (distributionRatings) ratingArray.push(distributionRatings);
 
+  const observer = new MutationObserver(() => {
 
-  const bookMetadata = document.querySelector("div.livre_con");
-  if (bookMetadata) {
-    const newBookRating = document.querySelector("[style*='border-radius:5px']");
-    if (newBookRating) ratingArray.push(newBookRating); // Fonctionne pour masquer tout
+    const bookMetadata = document.querySelector("div.livre_con");
+    if (bookMetadata) {
+      const newBookRating = document.querySelector("[style*='border-radius:5px']");
+      if (newBookRating) ratingArray.push(newBookRating); // Fonctionne pour masquer tout
     }
-
+  
     // Nouvelles notes dans un cadre (style variable...)
     document.querySelectorAll('[itemprop="aggregateRating"]').forEach(agg => {
       // Supprime le parent direct (cadre) qui contient l'élément aggregateRating
       if (agg.parentElement) {
-          agg.parentElement.remove();
+        agg.parentElement.remove();
       }
+    });
+  
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
   });
   
 
