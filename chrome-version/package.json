@@ -1,5 +1,6 @@
 {
     "scripts": {
-        "build": "python3 createFirefoxVersion.py && webpack"
+        "build": "python3 createFirefoxVersion.py && webpack" 
     }
 }
+ 
