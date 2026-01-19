@@ -1,7 +1,4 @@
-A Chrome extension removing all statistics, rankings, ratings, etc. from the interface of the French book recommendation platform Babelio.com. The goal of this plugin is to change how users perceive and interact with the website – and perhaps even how they read books.
-
-This experiment was inspired by [Ben Grosser](https://bengrosser.com/) and his [Facebook Demetricator](https://chromewebstore.google.com/detail/facebook-Anti-Quanti/dbkgglbefgkimiadfjmgnkjmaoahephg).
-
+Une extension Chrome et Firefox qui supprime la quantification de l'interface de la plateforme française de recommandation de livres Babelio.com. L'objectif de ce plugin est de comprendre l'influence des chiffres sur la façon dont les utilisateurs perçoivent et interagissent avec le site – et peut-être même sur leur manière de lire des livres.
 
 ---------
 ### Download :
@@ -10,13 +7,6 @@ This experiment was inspired by [Ben Grosser](https://bengrosser.com/) and his [
 
 **Firefox extension** [available here](https://addons.mozilla.org/fr/firefox/addon/babelio-Anti-Quanti/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search)
 
-
 ---------
-
-#### Examples of metrics deleted from the interface :
-<img src="chrome-version/assets/images/Before.png" alt="Before" width="400"/>
-<img src="chrome-version/assets/images/Before2.png" alt="Before" width="400"/>
-
-
-<!-- ### After :
-<img src="assets/images/After.png" alt="After" width="400"/> -->
+### Crédits
+Cette expérience scientifique a été inspirée par [Ben Grosser](https://bengrosser.com/) et son [Facebook Demetricator](https://chromewebstore.google.com/detail/facebook-Anti-Quanti/dbkgglbefgkimiadfjmgnkjmaoahephg).

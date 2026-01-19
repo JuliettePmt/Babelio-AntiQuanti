@@ -3,4 +3,3 @@
         "build": "python3 createFirefoxVersion.py && webpack" 
     }
 }
- 
