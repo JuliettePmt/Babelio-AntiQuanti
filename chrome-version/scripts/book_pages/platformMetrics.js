@@ -57,9 +57,22 @@ export function platformMetrics() {
     // Nb of readers (dynamic)
     const targetNodeNbReaders = document.querySelector("div.side_r");
 
+    // Nb of pages du livres ("566 pages")
+    const nbDePages = document.querySelectorAll(".livre_refs");
+    nbDePages.forEach(page => {
+        page.childNodes.forEach(node => {
+          if (
+            node.nodeType === Node.TEXT_NODE &&
+            node.textContent.includes("pages")
+          ) {
+            node.remove();
+          }
+        });
+      });
+      
+
     if (targetNodeNbReaders) {
         const observer = new MutationObserver(() => {
-
 
         const readersDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Lecteurs")); // Nombre de lecteurs sur la page d'un livre
 

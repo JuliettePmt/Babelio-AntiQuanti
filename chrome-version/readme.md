@@ -11,7 +11,7 @@ To build : 'web-ext build' (en modifiant éventuellement la version dans le mani
 
 Si modifiés dans la version Firefox directement, les changements seront supprimés par le script "createFirefoxVersion.py".
 
-La version Firefox reprend tous les fichiers de Chrome sauf les fichiers présents dans le dossier "firefox-assets/to-overwrite" :
+La version Firefox reprend tous les fichiers de Chrome sauf les fichiers présents dans le dossier `firefox-assets/to-overwrite` :
 - content.js
 - hide-body.css
 
@@ -20,9 +20,9 @@ La version Firefox reprend tous les fichiers de Chrome sauf les fichiers présen
 
 
 ## NB 2 : Pour exécuter une version de test sur Chrome 
-- Exécuter 'nxp webpack' dans le dossier Chrome, 
+- Exécuter 'nxp webpack' dans le dossier `/chrome-version`, 
 - Sélectionner sur Chrome "Charger l'extension non empaquetée"
-- Puis sélectionner le fichier (pas le .zip, juste le fichier avec le manifest en root)
+- Puis sélectionner le dossier `/chrome-version` (pas le .zip, juste le dossier avec le manifest en root)
 
 
 ## NB 3 : Pour exécuter une version de test sur Firefox 
