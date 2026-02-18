@@ -1,8 +1,23 @@
 // Not here nombre de pages de forum disparaissent
 
+
 export function platformMetrics() {
 
     console.log("platformMetrics OK")
+
+  //// Fonction de suppression des parenthèses : élément de type "Nombre de lecteurs (7 000)" -> "Nombre de lecteurs"          
+
+    function deleteParentheses(pageElement) {
+        if (pageElement) {
+            pageElement.childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    node.textContent = node.textContent.replace(/\(\d+\)/, '');
+                }
+            });
+        }
+    }
+
+    //// Fonction de suppression des parenthèses : élément de type "Nombre de lecteurs (7 000)" -> "Nombre de lecteurs"          
 
     let numberOfElementsArray = []
 
@@ -30,7 +45,7 @@ export function platformMetrics() {
     });
 
 
-    // Nombre de livres lus (displayed in the banner of the user profile) : "Livres (XXX)"
+    // Nombre de livres lus (dans la bannière du profil d'utilisateur) : "Livres (XXX)"
     const nbBooksRead = Array.from(document.querySelectorAll("#page_corps > div > div.livre_header.row > div > div")).find(a => a.textContent.includes("Livres"));
 
     if (nbBooksRead) {
@@ -91,8 +106,6 @@ export function platformMetrics() {
             });
         }
 
-        if (targetNodeNbReaders) {
-
             const listsDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Listes avec ce livre")); // Nombre de listes avec ce livre
 
             if (listsDiv) { 
@@ -116,14 +129,43 @@ export function platformMetrics() {
                     }
                 });
             }
-
-
-            }
         observer.disconnect();
         });  
 
         observer.observe(targetNodeNbReaders, { childList: true, subtree: true });
     }
+
+
+    
+    const observer = new MutationObserver(() => {
+        const currentlyReading = Array.from(document.querySelectorAll("div.titre"))
+            .find(div => div.textContent.includes("en train de le lire")); // " Ils sont en train de le lire"
+    
+        const haveRead = Array.from(document.querySelectorAll("div.titre"))
+            .find(div => div.textContent.includes("l'ont lu")); // "Ils l'ont lu"
+    
+        const wantToRead = Array.from(document.querySelectorAll("div.titre"))
+            .find(div => div.textContent.includes("veulent le lire")); // "Ils veulent le lire"
+
+        const lecteursDe = Array.from(document.querySelectorAll("h2")) //h2, pas div.titre
+            .find(div => div.textContent.includes("Lecteurs de")); // "Lecteurs de Les Guerriers de l'hiver (17216)"
+
+        const wantToExchange = Array.from(document.querySelectorAll("h2")) //h2, pas div.titre
+            .find(div => div.textContent.includes("veulent l'échanger")); // "Ils veulent l'échanger"
+
+
+        deleteParentheses(currentlyReading)
+        deleteParentheses(haveRead)
+        deleteParentheses(wantToRead)
+        deleteParentheses(lecteursDe)
+        deleteParentheses(wantToExchange)
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
 
     // Masquer l'iframe du nombre de followers sur Facebook (sur la page d'accueil)
     document.querySelectorAll('iframe[src*="facebook.com"]').forEach(iframe => {

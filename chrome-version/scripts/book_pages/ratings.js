@@ -20,12 +20,10 @@ export function ratings() {
 
       if (bookRating) {
         bookRating.style.display = "none";
-        bookRating.classList.add("processed-by-script");
       }
 
       if (bookCritics) {
         bookCritics.style.display = "none";
-        bookCritics.classList.add("processed-by-script");
       }
     });
   }
@@ -42,13 +40,11 @@ export function ratings() {
   if (communityRatings) {
     communityRatings.forEach((communityRating) => {
       communityRating.style.display = "none";
-      communityRating.classList.add("processed-by-script");
     });
   }
 
   if (textNoter) {
     textNoter.remove();
-    textNoter.classList.add("processed-by-script");
   }
 
   // Selected books. Example : https://www.babelio.com/categories/Non-fiction/10/tous
@@ -58,7 +54,6 @@ export function ratings() {
   if (ratingSelectedBooks) {
     ratingSelectedBooks.forEach((ratingSelectedBook) => {
       ratingSelectedBook.style.display = "none";
-      ratingSelectedBook.classList.add("processed-by-script");
     });
   }
 
