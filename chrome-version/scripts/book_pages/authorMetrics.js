@@ -1,4 +1,5 @@
-// Pas ici nb de pages
+// Refacto OK
+
 export function authorMetrics() {
 
     // Nombre de livres écrits et de critiques reçues
@@ -42,17 +43,14 @@ export function authorMetrics() {
     if (allDivTitres.length > 0) {
       const observer = new MutationObserver(() => {
         Array.from(allDivTitres).forEach((titre) => {
-          // Cas spécifique pour le div #dvideo
           if (titre.id === "dvideo") {
-            // Parcours les nœuds enfants du div
             Array.from(titre.childNodes).forEach((node) => {
-              // Ne garde que les nœuds texte (pas le lien <a>)
               if (node.nodeType === Node.TEXT_NODE) {
-                // Supprime les "(XX)" dans le nœud texte
                 node.textContent = node.textContent.replace(/\s*\(\d+\)/g, "");
               }
             });
           }
+
           // Autres cas (Citations, Vidéos, etc.)
           else if (
             titre.textContent.includes("Citations sur") ||
@@ -67,13 +65,10 @@ export function authorMetrics() {
       });
 
 
-      // Démarre l'observation
       observer.observe(document.body, { childList: true, subtree: true });
     }
 
 
-
-    
 
     // Voir plus (XX)
     const voirPlus = document.getElementsByClassName("more");
@@ -85,7 +80,6 @@ export function authorMetrics() {
     }  
     
     // PAGE DE RECHERCHE D'UN AUTEUR (quand on tape dans la barre de recherche)
-
     const statsAuteursRecherche = document.querySelectorAll(".resultats_bas");
 
     if (statsAuteursRecherche) {

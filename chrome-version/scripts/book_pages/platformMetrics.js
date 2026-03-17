@@ -1,12 +1,10 @@
-// Not here nombre de pages de forum disparaissent
-
+// En cours de refacto
 
 export function platformMetrics() {
 
     console.log("platformMetrics OK")
 
   //// Fonction de suppression des parenthèses : élément de type "Nombre de lecteurs (7 000)" -> "Nombre de lecteurs"          
-
     function deleteParentheses(pageElement) {
         if (pageElement) {
             pageElement.childNodes.forEach(node => {
@@ -17,20 +15,16 @@ export function platformMetrics() {
         }
     }
 
-    //// Fonction de suppression des parenthèses : élément de type "Nombre de lecteurs (7 000)" -> "Nombre de lecteurs"          
-
+    //// Fonction de suppression des parenthèses : élément de type "Nombre de lecteurs (7 000)" -> "Nombre de lecteurs"
     let numberOfElementsArray = []
 
-    // Top banner with press and community critics, citations
-    const bannerBookInfo = document.querySelector("#page_corps > div > div:nth-child(3) > div.livre_header.row > table > tbody > tr > td:nth-child(2) > div > div")
+    // Bannière avec nb d'articles de presse, de critiques, de citations sur la page d'un livre
+    const bannerBookInfo = document.querySelectorAll(".menu_link")
 
     if (bannerBookInfo) {
-        const infosSections = bannerBookInfo.querySelectorAll("a")
-
-        infosSections.forEach(section => {
+        bannerBookInfo.forEach(section => {
             numberOfElementsArray.push(section)
         });
-        
     }
 
     // Étoiles dans le texte (exemple : "4.53★ (2998)"")
@@ -46,16 +40,8 @@ export function platformMetrics() {
 
 
     // Nombre de livres lus (dans la bannière du profil d'utilisateur) : "Livres (XXX)"
-    const nbBooksRead = Array.from(document.querySelectorAll("#page_corps > div > div.livre_header.row > div > div")).find(a => a.textContent.includes("Livres"));
-
-    if (nbBooksRead) {
-        Array.from(nbBooksRead.childNodes).forEach(node => {
-                node.textContent = node.textContent.replace(/\(\d+\)/g, '');
-        });
-    }
-
-    // Notes dans les recommandations quotidiennes
-
+    const nbBooksRead = Array.from(document.querySelectorAll(".menu_link")).find(a => a.textContent.includes("Livres"));
+    deleteParentheses(nbBooksRead)
 
     // "Critiques, Analyses et Avis (XXX)"
     const criticsNumber = document.querySelector("#critiques")
@@ -90,45 +76,25 @@ export function platformMetrics() {
         const observer = new MutationObserver(() => {
 
         const readersDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Lecteurs")); // Nombre de lecteurs sur la page d'un livre
+        deleteParentheses(readersDiv)
 
         const authorOtherBooksDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Autres livres de")); // Nombre d'autres livres par le même auteur
+        deleteParentheses(authorOtherBooksDiv)
 
 
         const listsDivPageLists = Array.from(document.querySelectorAll("div.titre")).find(div => div.textContent.includes("Listes contenant")); // Nombre de livres dans la liste (sur la page des livres)
-    
-        if (listsDivPageLists) {
-            // Parcourt uniquement les nœuds texte
-            listsDivPageLists.childNodes.forEach(node => {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    // Supprime le nombre entre parenthèses, même si des espaces/retours sont autour
-                    node.nodeValue = node.nodeValue.replace(/\(\d+\)/g, '').trim();
-                }
-            });
+        deleteParentheses(listsDivPageLists)
+
+        const listsDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Listes avec ce livre")); // Nombre de listes avec ce livre
+
+        if (listsDiv) { 
+            const link = listsDiv.querySelector("a"); 
+            if (link) {
+                link.textContent = link.textContent.replace(/\(\d+\)/g, '');
+            }
         }
 
-            const listsDiv = Array.from(targetNodeNbReaders.querySelectorAll("div.titre")).find(div => div.textContent.includes("Listes avec ce livre")); // Nombre de listes avec ce livre
 
-            if (listsDiv) { 
-                const link = listsDiv.querySelector("a"); 
-                if (link) {
-                    link.textContent = link.textContent.replace(/\(\d+\)/g, '');
-                }
-            }
-
-            if (authorOtherBooksDiv) {
-                authorOtherBooksDiv.childNodes.forEach(node => {
-                    if (node.nodeType === Node.TEXT_NODE && node.textContent.includes("Autres livres de")) {
-                        node.textContent = node.textContent.replace(/\(\d+\)/g, '');}
-                });
-            }          
-        
-            if (readersDiv) {
-                readersDiv.childNodes.forEach(node => {
-                    if (node.nodeType === Node.TEXT_NODE && node.textContent.includes("Lecteurs")) {
-                        node.textContent = node.textContent.replace(/\(\d+\)/g, ''); // Remove directly only the number in parentheses
-                    }
-                });
-            }
         observer.disconnect();
         });  
 
@@ -175,7 +141,6 @@ export function platformMetrics() {
 
     // Number of citations between reco books 
     const bookCitations = document.querySelectorAll(".side_l h3 nobr a");
-
     if (bookCitations) {
         bookCitations.forEach(bookCitation => {
             bookCitation.style.display = "none";
@@ -191,14 +156,16 @@ export function platformMetrics() {
     });
 
 
-
     // >> Execution <<
-    numberOfElementsArray.forEach(element => {
-        element.childNodes.forEach(node => { // Use childNodes to prevent the suppression of all CSS style
-            if (node.nodeType === Node.TEXT_NODE) {
-                node.textContent = node.textContent.replace(/\s*\(.*?\)\s*/g, '');
-            }
-        });
-    });
+    numberOfElementsArray.forEach(element => {deleteParentheses(element)})
+
+
+    // numberOfElementsArray.forEach(element => {
+    //     element.childNodes.forEach(node => {
+    //         if (node.nodeType === Node.TEXT_NODE) {
+    //             node.textContent = node.textContent.replace(/\s*\(.*?\)\s*/g, '');
+    //         }
+    //     });
+    // });
     
 }
