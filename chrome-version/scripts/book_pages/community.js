@@ -1,16 +1,32 @@
-// Pas ici pour le nb de pages sur le forum
 
 export function community() {
 
     console.log("Community OK")
 
+    function deleteParentheses(pageElement) {
+        if (pageElement) {
+            pageElement.childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    node.textContent = node.textContent.replace(/\(\d+\)/, '');
+                }
+            });
+        }
+    }
+
+    function displayNone(pageElement) {
+        if (pageElement) {
+            pageElement.forEach(element => {
+                element.style.display = "none";
+            });
+        }
+    }
+
     // Likes on critics
-    const communityLikes = document.querySelectorAll("span.qualite > span.post_items_like");
+    const communityLikes = document.querySelectorAll("span.post_items_like")
 
     if (communityLikes) {
         communityLikes.forEach(communityLike => {
             const numberLikes = communityLike.querySelector('[id^="myspan"]'); // name of the id starts with "myspan"
-
             if (numberLikes) {
                 numberLikes.style.display = "none";
             }
@@ -18,7 +34,9 @@ export function community() {
     }
 
     // Commentaires critiques
-    const commentaryOnCritics = document.querySelectorAll("span.qualite > a");
+    const commentaryOnCritics = document.querySelectorAll("a.post_items_com");
+
+    
     if (commentaryOnCritics) {
         commentaryOnCritics.forEach(commentary => {
             const numberOfCommentaryOnCritics = commentary.querySelector('[id^="myspan"]');
@@ -29,8 +47,8 @@ export function community() {
     }
 
     // Nombre de livres dans une liste
-    const nbBooksLists = document.querySelectorAll("div.side_r > div:nth-child(8) > div.liste.row > div > div > h3");
-    
+    const nbBooksLists = document.querySelectorAll("div.liste_row");
+
     if (nbBooksLists.length > 0) {
         nbBooksLists.forEach(nbBooksList => {
             const nbBooksListsV1 = nbBooksList.querySelectorAll("strong");
@@ -72,9 +90,7 @@ export function community() {
     };
 
 
-    // QUIZ
-
-
+    // **** QUIZ **** 
     // Nombre de réponses aux quizz (page de livres)
     const numberUsersQuiz = document.querySelector(".side_quizz_nb")
 
@@ -92,7 +108,6 @@ export function community() {
         }
     });
     
-
 
     // Quiz rating
     const metadataQuiz = document.querySelectorAll("div > div > div > div > h3 > a");
@@ -286,13 +301,18 @@ export function community() {
     }
     
 
-      // "Listes sur ce thème (XX)" (page thriller, par exemple)
-      document.querySelectorAll('.titre a').forEach(a => {
-        if (a.textContent.includes('Listes sur ce thème')) {
-          a.textContent = a.textContent.replace(/\s*\([^)]*\)/g, '');
-        }
-      });
+    // "Listes sur ce thème (XX)" (page thriller, par exemple)
+    document.querySelectorAll('.titre a').forEach(a => {
+    if (a.textContent.includes('Listes sur ce thème')) {
+        a.textContent = a.textContent.replace(/\s*\([^)]*\)/g, '');
+    }
+    });
       
-    
+    // "Listes sur ce thème (XX)" (page thriller, par exemple)
+    document.querySelectorAll('.titre a').forEach(a => {
+    if (a.textContent.includes('Ses listes')) {
+        a.textContent = a.textContent.replace(/\s*\([^)]*\)/g, '');
+    }
+    });
     
 };

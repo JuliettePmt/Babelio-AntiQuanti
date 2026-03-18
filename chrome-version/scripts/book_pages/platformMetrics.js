@@ -1,4 +1,4 @@
-// En cours de refacto
+// Refacto OK
 
 export function platformMetrics() {
 
@@ -159,13 +159,5 @@ export function platformMetrics() {
     // >> Execution <<
     numberOfElementsArray.forEach(element => {deleteParentheses(element)})
 
-
-    // numberOfElementsArray.forEach(element => {
-    //     element.childNodes.forEach(node => {
-    //         if (node.nodeType === Node.TEXT_NODE) {
-    //             node.textContent = node.textContent.replace(/\s*\(.*?\)\s*/g, '');
-    //         }
-    //     });
-    // });
     
 }
