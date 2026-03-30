@@ -1,5 +1,3 @@
-// PAs ici nb de pages forum
-
 export function ratings() {
   console.log("Ratings OK");
   let ratingArray = [];
@@ -83,6 +81,11 @@ export function ratings() {
   // if (distributionRatings) ratingArray.push(distributionRatings);
 
   const observer = new MutationObserver(() => {
+
+    const histogrammeRatings = document.querySelector("div.histogramme");
+    if (histogrammeRatings) {
+      ratingArray.push(histogrammeRatings); // Fonctionne pour masquer tout
+    }
 
     const bookMetadata = document.querySelector("div.livre_con");
     if (bookMetadata) {
