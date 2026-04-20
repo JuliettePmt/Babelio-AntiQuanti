@@ -55,6 +55,9 @@ export function ratings() {
     });
   }
 
+
+  
+
   //******** UNIQUE ELEMENTS ********
   // Top part of book page (beside metadata)
   // const ratingValue = document.querySelector(
@@ -107,7 +110,30 @@ export function ratings() {
     childList: true,
     subtree: true
   });
+
+
+
+  const mainObserver = new MutationObserver(() => {
+    document.querySelectorAll('iframe').forEach((iframe) => {
+      if (iframe.dataset.critiqueObserved) return; // évite de l'attacher deux fois
+      iframe.dataset.critiqueObserved = true;
   
+      iframe.addEventListener('load', () => {
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (iframeDoc?.body) {
+            iframeDoc.querySelectorAll('[data-rateit-mode="font"]').forEach(el => el.remove());
+          }
+        } catch (e) {}
+      });
+    });
+  });
+  
+  mainObserver.observe(document.body, { childList: true, subtree: true });
+
+
+
+
 
   //// Onglet "Critiques"
   // Sumary of critics
