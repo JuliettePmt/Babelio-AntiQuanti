@@ -36,7 +36,8 @@ export function sideMetrics() {
       }
     }
 
-    const nbFollowers = document.querySelectorAll('a[href="/abonnes"]');
+    // NB : ça supprime aussi le "abonnés" dans le menu hover du haut MAIS si je mets pas ça, ça remet des stats sur le profil (étrange)
+    const nbFollowers = Array.from(document.querySelectorAll('a[href="/abonnes"]')).filter(el => !el.closest('#menu_notif'));
     const nbFollowing = document.querySelectorAll('a[href="/abonnements"]');
 
     nbFollowers.forEach(function (follower) {
