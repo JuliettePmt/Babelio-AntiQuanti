@@ -251,6 +251,18 @@ export function community() {
         }
     });
 
+        // Supprimer le nombre de citations d'un abonné si y en a qu'une seule
+        document.querySelectorAll("a.titre_livre_elements").forEach(a => {
+            // Vérifie si le lien contient "critiques"
+            if (a.textContent.includes("citation")) {
+                a.querySelectorAll("span").forEach(span => {
+                    if (/^\d+$/.test(span.textContent.trim())) {
+                        span.remove();
+                    }
+                });
+            }
+        });
+
     document.querySelectorAll("a.titre_livre_elements").forEach(a => {
         // Vérifie si le lien contient "critiques"
         if (a.textContent.includes("citations")) {
