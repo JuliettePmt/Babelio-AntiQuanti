@@ -112,7 +112,7 @@ export function ratings() {
   });
 
 
-
+  // Notation dans le cadre qui s'ouvre en cliquant sur le bouton "Ajouter une critique" 
   const mainObserver = new MutationObserver(() => {
     document.querySelectorAll('iframe').forEach((iframe) => {
       if (iframe.dataset.critiqueObserved) return; // évite de l'attacher deux fois
