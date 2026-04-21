@@ -21,7 +21,7 @@ export function community() {
         }
     }
 
-    // Likes on critics
+    // Likes sur les critiques
     const communityLikes = document.querySelectorAll("span.post_items_like")
 
     if (communityLikes) {
@@ -32,6 +32,18 @@ export function community() {
             }
         });
     }
+
+    // Notifications pour les likes (https://www.babelio.com/notifications.php)
+    const nbLikesNotifs = document.querySelectorAll("a.itemAhref");
+    nbLikesNotifs.forEach(a => {
+      a.querySelectorAll('li.item').forEach(li => {
+        li.innerHTML = li.innerHTML.replace(
+          / et \d+ autres/,
+          ' et d\'autres'
+        );
+      });
+    });
+    
 
     // Commentaires critiques
     const commentaryOnCritics = document.querySelectorAll("a.post_items_com");

@@ -55,9 +55,6 @@ export function platformMetrics() {
     const citationsNumber = document.querySelector("#citations")
     if (citationsNumber) numberOfElementsArray.push(citationsNumber)
 
-    const singularCitationNumber = document.querySelector("#citation")
-    if (singularCitationNumber) numberOfElementsArray.push(citationsNumber)
-
     // Nb of readers (dynamic)
     const targetNodeNbReaders = document.querySelector("div.side_r");
 
