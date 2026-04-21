@@ -1,6 +1,7 @@
-Une extension Chrome et Firefox qui supprime la quantification de l'interface de la plateforme française de recommandation de livres Babelio. 
+**Une extension Chrome et Firefox qui supprime la quantification de l'interface de la plateforme française de recommandation de livres Babelio.** L'objectif de ce plugin est de comprendre l'influence des chiffres sur la façon dont les utilisateurs perçoivent et interagissent avec le site – et peut-être même sur leur manière de lire.
 
-L'objectif de ce plugin est de comprendre l'influence des chiffres sur la façon dont les utilisateurs perçoivent et interagissent avec le site – et peut-être même sur leur manière de lire.
+
+**A Chrome and Firefox extension that removes quantification from the interface of the French book recommendation platform Babelio.** The objective of this plugin is to understand the influence of numbers on how users perceive and interact with the site – and perhaps even on the way they read.
 
 ---------
 ### Download :
