@@ -94,6 +94,12 @@ export function platformMetrics() {
             }
         }
 
+        document.querySelectorAll('a').forEach(a => {
+            if (a.textContent.includes("Listes avec ce livre")) {
+              a.textContent = a.textContent.replace(/\s*\(\d+\)/, '');
+            }
+          });
+
 
         observer.disconnect();
         });  
