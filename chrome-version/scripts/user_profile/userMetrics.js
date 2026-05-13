@@ -60,17 +60,20 @@ export function userMetrics() {
 
   // *** Volet "Mes livres"
 
-  // Statistiques : nombre de citations & critiques
-  const nbQuotesMyBooks = document.querySelectorAll(
-    "#form-test > div.mes_livres > div.mes_livres_con > table > tbody > tr > td.titre_livre > a.titre_livre_elements"
-  );
 
-  if (nbQuotesMyBooks.length > 0) {
-    nbQuotesMyBooks.forEach((nbQuotes) => {
-      nbQuotes.remove();
-    });
-  }
+  
+  // // const nbQuotesMyBooks = document.querySelectorAll(
+  // //   "#form-test > div.mes_livres > div.mes_livres_con > table > tbody > tr > td.titre_livre > a.titre_livre_elements"
+  // // );
 
+  // if (nbQuotesMyBooks.length > 0) {
+  //   nbQuotesMyBooks.forEach((nbQuotes) => {
+  //     nbQuotes.remove();
+  //   });
+  // }
+  // if (nbQuotesMyBooks.length > 0) {
+  //   nbQuotesMyBooks[0].querySelector('span').remove();
+  // }
 
 
   // Supprimer le nombre de lecteurs dans le tableau des livres lus (onglet Mes Livres)
