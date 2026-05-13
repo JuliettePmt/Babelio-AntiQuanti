@@ -49,7 +49,6 @@ export function sideMetrics() {
     });
 
     // CONTRIBUTIONS
-
     // Nombre de critiques rédigées
     const nbCriticsMyBooks = document.querySelectorAll('a[href="mescritiques.php"]');
     if (nbCriticsMyBooks) {
@@ -63,7 +62,10 @@ export function sideMetrics() {
       const span = nbQuotesMyBooks[0].querySelector('span');
       span.remove();    
     }
+    if (nbQuotesMyBooks.nextSibling?.nodeName === "BR") node.nextSibling.remove();
 
+
+    // CONTRIBUTIONS APPRÉCIÉES
     // Nombre de critiques appréciées
     const nbCriticsAppreciees = document.querySelectorAll('a[href="mescritiquesappreciees.php"]');
     if (nbCriticsAppreciees) {
@@ -78,10 +80,24 @@ export function sideMetrics() {
         span.remove();
     }
 
-    // const sideStats = document.querySelectorAll(".side_stats");
-    // sideStats.forEach((stat) => {
-    //   stat.remove();
-    // });
+    // Supprimer les doubles balises <br>
+    document.querySelectorAll('.side_r_content').forEach(sideR => {
+      sideR.querySelectorAll('br + br').forEach(br => br.remove());
+    });
+
+    const sideStats = document.querySelector('a[href="mescitationsappreciees.php"]').closest('.side_stats');
+    let next = sideStats.nextSibling;
+    while (next?.nodeName === "BR") {
+      const toRemove = next;
+      next = next.nextSibling;
+      toRemove.remove();
+    }
+
+    document.querySelectorAll('.side_r_content').forEach(sideR => {
+      if (sideR.textContent.includes("Contributions appréciées")) {
+        sideR.querySelectorAll('br').forEach(br => br.remove());
+      }
+    });
 
     const contributionStat = document.querySelectorAll(".contribution_progress");
     contributionStat.forEach((stat) => {
@@ -105,12 +121,11 @@ export function sideMetrics() {
     titres.forEach((titre) => {
       if (titre.textContent.includes("Notez vos lectures")) {
         titre.remove();
-        if (titreDiv.previousSibling?.nodeName === "BR") titreDiv.previousSibling.remove();
+        if (titre.previousSibling?.nodeName === "BR") titre.previousSibling.remove();
       } else if (titre.textContent.includes("Contributions & insignes")) {
         const titreDiv = titre.querySelector(".titre");
         if (titreDiv) {
           titreDiv.childNodes[0].textContent = "Contributions ";
-          if (titreDiv.previousSibling?.nodeName === "BR") titreDiv.previousSibling.remove();
         }
       }
     });
@@ -118,13 +133,10 @@ export function sideMetrics() {
       if (t.textContent.includes("défi de lecture")) t.remove();
     });
     document.querySelector('a.libelle[href*="historique_lecture_annee"]')?.remove();
-    if (titreDiv.previousSibling?.nodeName === "BR") titreDiv.previousSibling.remove();
     
     document.querySelectorAll('.side_r_content').forEach(sideR => {
       sideR.childNodes.forEach((node) => {
         if (node.nodeType === Node.TEXT_NODE && node.textContent.includes("livres lus sur")) {
-          if (node.previousSibling?.nodeName === "BR") node.previousSibling.remove();
-          if (node.nextSibling?.nodeName === "BR") node.nextSibling.remove();
           node.remove();
         }
       });
@@ -133,8 +145,6 @@ export function sideMetrics() {
     // "Définir l'objectif"
     document.querySelectorAll('a').forEach(a => {
       if (a.textContent.includes("définir l'objectif")) {
-        if (a.previousSibling?.nodeName === "BR") a.previousSibling.remove();
-        if (a.nextSibling?.nodeName === "BR") a.nextSibling.remove();
         a.remove();
       }
     });
