@@ -105,6 +105,7 @@ export function sideMetrics() {
     titres.forEach((titre) => {
       if (titre.textContent.includes("Notez vos lectures")) {
         titre.remove();
+        if (titreDiv.previousSibling?.nodeName === "BR") titreDiv.previousSibling.remove();
       } else if (titre.textContent.includes("Contributions & insignes")) {
         const titreDiv = titre.querySelector(".titre");
         if (titreDiv) {
@@ -117,6 +118,7 @@ export function sideMetrics() {
       if (t.textContent.includes("défi de lecture")) t.remove();
     });
     document.querySelector('a.libelle[href*="historique_lecture_annee"]')?.remove();
+    if (titreDiv.previousSibling?.nodeName === "BR") titreDiv.previousSibling.remove();
     
     document.querySelectorAll('.side_r_content').forEach(sideR => {
       sideR.childNodes.forEach((node) => {
