@@ -48,16 +48,17 @@ export function sideMetrics() {
       following.remove();
     });
 
+// PROFIL INDIVIDUEL
     // CONTRIBUTIONS
     // Nombre de critiques rédigées
-    const nbCriticsMyBooks = document.querySelectorAll('a[href="mescritiques.php"]');
+    const nbCriticsMyBooks = document.querySelectorAll('a[href*="mescritiques.php"]');
     if (nbCriticsMyBooks) {
         const span = nbCriticsMyBooks[0].querySelector('span');
         span.remove();
     }
 
     // Nombre de citations ajoutées
-    const nbQuotesMyBooks = document.querySelectorAll('a[href="mescitations.php"]');
+    const nbQuotesMyBooks = document.querySelectorAll('a[href*="mescitations.php"]');
     if (nbQuotesMyBooks) {
       const span = nbQuotesMyBooks[0].querySelector('span');
       span.remove();    
@@ -67,18 +68,63 @@ export function sideMetrics() {
 
     // CONTRIBUTIONS APPRÉCIÉES
     // Nombre de critiques appréciées
-    const nbCriticsAppreciees = document.querySelectorAll('a[href="mescritiquesappreciees.php"]');
+    const nbCriticsAppreciees = document.querySelectorAll('a[href*="mescritiquesappreciees.php"]');
     if (nbCriticsAppreciees) {
         const span = nbCriticsAppreciees[0].querySelector('span');
         span.remove();
     }
 
     // Nombre de citations appréciées
-    const nbQuotesAppreciees = document.querySelectorAll('a[href="mescitationsappreciees.php"]');
+    const nbQuotesAppreciees = document.querySelectorAll('a[href*="mescitationsappreciees.php"]');
     if (nbQuotesAppreciees) {
         const span = nbQuotesAppreciees[0].querySelector('span');
         span.remove();
     }
+    
+    // Nb réponses
+    const nbReponses = document.querySelectorAll('a[href*="ses_questions_reponses"]');
+    if (nbReponses) {
+        const span = nbReponses[0].querySelector('span');
+        span.remove();
+    }
+
+    // Mes quiz
+    const nbQuiz = document.querySelectorAll('a[href*="mes_quiz.php"]');
+    if (nbQuiz) {
+        const span = nbQuiz[0].querySelector('span');
+        span.remove();
+    }
+
+    // Badges
+    document.querySelector('a[href*="mesbadges.php"]')?.remove();
+
+    // Insignes
+    document.querySelector('.side_insignes')?.remove();
+
+    // Défi lecture d'un autre utilisateur
+    document.querySelectorAll('.titre').forEach(t => {
+      if (t.textContent.includes("défi de lecture")) t.remove();
+    });
+
+    document.querySelector('a[href*="annee_lecture"]')?.remove();
+
+
+    document.querySelectorAll('.side_r_content').forEach(sideR => {
+      sideR.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.includes("livres lus sur")) {
+          if (node.previousSibling?.nodeName === "BR") node.previousSibling.remove();
+          node.remove();
+        }
+      });
+    });
+
+    const progress = document.querySelector('.contribution_progress');
+    if (progress) {
+      if (progress.previousSibling?.nodeName === "BR") progress.previousSibling.remove();
+      if (progress.nextSibling?.nodeName === "BR") progress.nextSibling.remove();
+      progress.remove();
+    }
+
 
     // Supprimer les doubles balises <br>
     document.querySelectorAll('.side_r_content').forEach(sideR => {
@@ -148,7 +194,9 @@ export function sideMetrics() {
         a.remove();
       }
     });
-    // document.querySelector('a.tiny_links.dark')?.remove();
+
+    // PROFIL D'UN AUTRE
+
 
 
   });
