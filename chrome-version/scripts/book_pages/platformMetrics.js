@@ -100,6 +100,9 @@ export function platformMetrics() {
             }
           });
 
+          const nbCitationsApprecieesV3 = document.querySelector('a[href$="mescitationsappreciees.php"] span');
+          nbCitationsApprecieesV3?.remove();
+
 
         observer.disconnect();
         });  

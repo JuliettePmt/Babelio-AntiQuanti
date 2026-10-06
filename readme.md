@@ -12,4 +12,6 @@
 
 ---------
 ### Credits
-This scientific experiment was inspired by [Ben Grosser](https://bengrosser.com/) and his [Facebook Demetricator](https://chromewebstore.google.com/detail/facebook-Anti-Quanti/dbkgglbefgkimiadfjmgnkjmaoahephg).
+This scientific experiment was inspired by [Ben Grosser](https://bengrosser.com/) and his [Facebook Demetricator](https://bengrosser.com/projects/facebook-demetricator/).
+
+This research was conducted as part of a [PhD thesis](https://julietteparmentier.com/) financed by the Fund for Scientific Research (FNRS).

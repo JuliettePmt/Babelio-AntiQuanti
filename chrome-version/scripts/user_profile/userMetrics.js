@@ -128,6 +128,13 @@ export function userMetrics() {
       const themesCommunsComparaison = Array.from(allDivTitres).find((div) => div.textContent.includes("thèmes de lecture communs"));
       const citationsSur = Array.from(allDivTitres).find((div) => div.textContent.includes("Citations sur")); // "Citations sur "Feu" "
       const bibliographieAuteur = Array.from(allDivTitres).find((div) => div.textContent.includes("Bibliographie de")); // "Bibliographie de Marc Lévy"
+      const critiquesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Critiques"));
+      // https://www.babelio.com/mescritiques.php
+      const citationsNb = Array.from(allDivTitres).find(div => div.textContent.includes("Citations"))?.querySelector("span"); // https://www.babelio.com/mescitations.php
+      const critiquesApprecieesNb = Array.from(allDivTitres).find(div => div.textContent.includes("Critiques appréciées"))?.querySelector("span"); //https://www.babelio.com/mescritiquesappreciees.php
+      const citationsApprecieesNb = Array.from(allDivTitres).find((div) => div.textContent.includes("Citations appréciées")); // https://www.babelio.com/mescitationsappreciees.php
+
+
 
       supprimerParentheses(ileDeserteDiv)
       supprimerParentheses(enTrainDeLire)
@@ -142,6 +149,11 @@ export function userMetrics() {
       supprimerParentheses(podcasts)
       supprimerParentheses(critiquesSurTheme)
       supprimerParentheses(bibliographieAuteur) // A priori : non-fonctionnel, voir ci-après
+      
+      supprimerParentheses(critiquesNb)
+      supprimerParentheses(citationsNb)
+      supprimerParentheses(critiquesApprecieesNb)
+      supprimerParentheses(citationsApprecieesNb)
 
 
       // "Voir tous mes livres (XXX)" (page d'un genre littéraire particulier : ex. : Littérature tchèque)

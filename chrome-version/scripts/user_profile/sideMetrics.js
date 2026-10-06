@@ -81,19 +81,25 @@ export function sideMetrics() {
 
     // CONTRIBUTIONS APPRÉCIÉES
     // Nombre de critiques appréciées
-    const nbCriticsAppreciees = document.querySelectorAll('a[href*="mescritiquesappreciees.php"]');
-    if (nbCriticsAppreciees) {
-        const span = nbCriticsAppreciees[0].querySelector('span');
+    const nbCritiquesAppreciees = document.querySelectorAll('a[href*="mescritiquesappreciees.php"]');
+    if (nbCritiquesAppreciees) {
+        const span = nbCritiquesAppreciees[0].querySelector('span');
         span.remove();
     }
 
+    const nbCritiquesApprecieesV2 = document.querySelector('a[href="mescritiquesappreciees.php"] span');
+    nbCritiquesApprecieesV2.remove();
+
     // Nombre de citations appréciées
-    const nbQuotesAppreciees = document.querySelectorAll('a[href*="mescitationsappreciees.php"]');
-    if (nbQuotesAppreciees) {
-        const span = nbQuotesAppreciees[0].querySelector('span');
+    const nbCitationsAppreciees = document.querySelectorAll('a[href*="mescitationsappreciees.php"]');
+    if (nbCitationsAppreciees) {
+        const span = nbCitationsAppreciees[0].querySelector('span');
         span.remove();
     }
-    
+
+    const nbCitationsApprecieesV2 = document.querySelector('a[href*="mescitationsappreciees"] span');
+    nbCitationsApprecieesV2.remove();  
+
     // Nb réponses
     const nbReponses = document.querySelectorAll('a[href*="ses_questions_reponses"]');
     if (nbReponses) {
